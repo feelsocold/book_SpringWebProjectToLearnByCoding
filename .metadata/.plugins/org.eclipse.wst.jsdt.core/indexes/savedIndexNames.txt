@@ -1,0 +1,2 @@
+INDEX VERSION 1.4+/Users/MACBOHAN/Documents/elevatingcodingclub/book_SpringWebProjectToLearnByCoding/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+708212558.index

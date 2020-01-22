@@ -1,10 +1,12 @@
 applyBackground=false
 approved.defs.file.last.changed.time=1567206552000
+codemix.dont.show.upsell.until=1581782384488
 configurationInstallLocation=/Volumes/Eclipse/Eclipse.app/Contents/Eclipse/
 eclipse.preferences.version=1
 iconcolormode=primary
 includeThemingInOomph=false
-last.download.attempt.time=1579608612183
-lastConfiguration=1579608733591
-newinstall=true
+last.download.attempt.time=1579675560454
+lastConfiguration=1579683445232
+newinstall=false
+showWelcomeDialog=false
 workbench.theme=Dark Gray

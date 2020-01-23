@@ -5,7 +5,37 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2020-01-21T14:10:40Z</updated>
+  <updated>2020-01-22T08:56:05Z</updated>
+  <entry>
+    <title>Spring Tools 4.5.1 released</title>
+    <link rel="alternate" href="https://spring.io/blog/2020/01/22/spring-tools-4-5-1-released" />
+    <category term="releases" label="Releases" />
+    <author>
+      <name>Martin Lippert</name>
+    </author>
+    <id>tag:spring.io,2020-01-22:3937</id>
+    <updated>2020-01-22T08:56:05Z</updated>
+    <content type="html">&lt;p&gt;Dear Spring Community,&lt;/p&gt;
+&lt;p&gt;I am happy to announce the 4.5.1 release of the Spring Tools 4 for Eclipse, Visual Studio Code, and Theia.&lt;/p&gt;
+&lt;p&gt;Highlights from this release include:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;(Spring Boot)&lt;/em&gt; improvement: live hover mechanism now reports connection failures&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;(Eclipse)&lt;/em&gt; improvement: Add support for async completions in 4.15 (&lt;a href="https://github.com/spring-projects/sts4/issues/402"&gt;#402&lt;/a&gt;) - PR from @gayanper&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;(Eclipse)&lt;/em&gt; improvement: Early access builds for Eclipse 4.15 available&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;(Eclipse)&lt;/em&gt; fixed: auto-completion inserted extra newline for params in &lt;code&gt;@Value&lt;/code&gt; annotations&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;(Eclipse)&lt;/em&gt; fixed: Boot Dashboard cannot start app when Eclipse project name contains spaces (&lt;a href="https://github.com/spring-projects/sts4/issues/403"&gt;#403&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;(Eclipse)&lt;/em&gt; fixed: NPE in PropertiesJavaDefinitionHandler.adjustedHighlightRangeForKey (&lt;a href="https://github.com/spring-projects/sts4/issues/401"&gt;#401&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;(Eclipse)&lt;/em&gt; fixed: builds on Eclipse 4.14 include latest m2e snapshot components to fix an issue when running JUnit 5 tests&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To download the distribution for Eclipse and find links to the marketplace entries for Visual Studio Code and Theia, please go visit:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Spring Tools 4: &lt;a href="https://spring.io/tools/"&gt;https://spring.io/tools/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detailed changes can be found here: &lt;a href="https://github.com/spring-projects/sts4/wiki/Changelog#2020-01-22-451-release"&gt;https://github.com/spring-projects/sts4/wiki/Changelog#2020-01-22-451-release&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Spring Tools 4.5.2 is scheduled to be released in late February 2020.&lt;/p&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;
+&lt;!-- rendered by Sagan Renderer Service --&gt;</content>
+  </entry>
   <entry>
     <title>This Week in Spring - January 21st, 2020</title>
     <link rel="alternate" href="https://spring.io/blog/2020/01/21/this-week-in-spring-january-21st-2020" />
@@ -827,32 +857,6 @@ Spring Security 5.3.0.M1! You can find the complete details in the &lt;a href="h
   &lt;li&gt;&lt;a href="https://docs.microsoft.com/en-us/azure/azure-supportability/how-to-create-azure-support-request?WT.mc_id=twitter-social-judubois"&gt;Good news everybody! The support channel for Azure Spring Cloud is now available!&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;An interesting post on the &lt;a href="https://howtodoinjava.com/spring-boot2/spring-boot-starter-parent-dependency/"&gt;Spring Boot starter parent&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;!-- rendered by Sagan Renderer Service --&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring for Apache Kafka 2.4 is Available</title>
-    <link rel="alternate" href="https://spring.io/blog/2019/12/23/spring-for-apache-kafka-2-4-is-available" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>Gary Russell</name>
-    </author>
-    <id>tag:spring.io,2019-12-23:3917</id>
-    <updated>2019-12-23T18:18:14Z</updated>
-    <content type="html">&lt;div class="paragraph"&gt;
-&lt;p&gt;To support last week&amp;#8217;s Apache Kafka 2.4.0 release, I am pleased to announce that the Spring for Apache Kafka 2.4 - 2.4.0.RELEASE - is available in maven central.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;This version is essentially functionally equivalent to 2.3.x, but is compiled against the 2.4.0 &lt;code&gt;kafka-clients&lt;/code&gt; and supports the new incremental rebalancing protocol.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;The 2.4.0 &lt;code&gt;kafka-clients&lt;/code&gt; are not binary compatible with Spring for Apache Kafka 2.3 so if you wish to use the 2.4.0 clients, you must upgrade to this version. See the appendix in the reference manual for how to override the jar versions, especially if you are using Spring Boot for dependency management and/or you are using the test embedded Kafka broker.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;At the time of writing, it is expected that the next Spring Boot version (2.3) will pull in 2.4.x of this project via its dependency management.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;&lt;a href="https://spring.io/projects/spring-kafka/"&gt;Project Page&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-kafka"&gt;GitHub&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-kafka/issues"&gt;Issues&lt;/a&gt; | &lt;a href="https://docs.spring.io/spring-kafka/docs/2.4.0..RELEASE/reference/html/"&gt;Documentation&lt;/a&gt; | &lt;a href="https://stackoverflow.com/questions/tagged/spring-kafka"&gt;Stack Overflow&lt;/a&gt; | &lt;a href="https://gitter.im/spring-projects/spring-kafka"&gt;Gitter&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
 &lt;!-- rendered by Sagan Renderer Service --&gt;</content>
   </entry>
 </feed>

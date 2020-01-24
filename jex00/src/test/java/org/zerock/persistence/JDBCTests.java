@@ -27,8 +27,9 @@ public class JDBCTests {
 				"jdbc:oracle:thin:@localhost:1521:XE",
 				"book_ex",
 				"book_ex")){
-							log.info(con);
+			log.info(con);
 		} catch (Exception e) {
+			System.out.println("11111111111111111111");
 			fail(e.getMessage());
 		}
 		

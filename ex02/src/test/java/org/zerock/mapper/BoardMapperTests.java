@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.BoardVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -56,10 +55,11 @@ public class BoardMapperTests {
 //		log.info(board);
 //	}	
 	
-	@Test
-	public void testDelete() {
-		log.info("DELETE COUNT : " + mapper.delete(3L));
-	}
+//	@Test
+//	public void testDelete() {
+//		log.info("DELETE COUNT : " + mapper.delete(3L));
+//	}
+	
 	
 	
 }

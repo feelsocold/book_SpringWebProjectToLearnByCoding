@@ -20,7 +20,7 @@
 		</selectKey>
 		
 		INSERT INTO tb1_board (bno, title, content, writer)
-		VALUES (seq_board.nextval, #{title}, #{content}, #{writer})
+		VALUES (#{bno}, #{title}, #{content}, #{writer})
 	</insert>
 	
 	<select id="read" resultType="org.zerock.domain.BoardVO">
@@ -36,7 +36,7 @@
 		SET title = #{title},
 			content = #{content},
 			writer = #{writer},
-			updateDate = sysdate,
+			updateDate = sysdate
 	 	WHERE bno = #{bno}
 	</update>
 </mapper>

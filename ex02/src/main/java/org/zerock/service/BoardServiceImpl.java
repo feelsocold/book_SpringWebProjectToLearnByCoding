@@ -18,13 +18,14 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void register(BoardVO board) {
-		log.info("register...." + board);
+		//log.info("register...." + board);
 		mapper.insertSelectKey(board);
+		//mapper.insert(board);
 	}
 
 	@Override
 	public BoardVO get(Long bno) {
-		log.info("get......" + bno);
+		//log.info("get......" + bno);
 		return mapper.read(bno);
 	}
 
@@ -42,7 +43,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<BoardVO> getList() {
-		log.info("getList.......");
+		//log.info("getList.......");
 		return mapper.getList();
 	}
 

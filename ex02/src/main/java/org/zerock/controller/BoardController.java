@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.pageDTO;
 import org.zerock.service.BoardService;
 
 import lombok.extern.log4j.Log4j;
@@ -24,57 +27,68 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
+	//리스트 이동
 	@GetMapping("/list")
-	public void list(Model model) {
+	public void list(Model model, Criteria cri) {
 		
-		log.info("리스트");
+		log.info("►►►►►►►►►►►►►►►►►►►►►►►+ " + cri.toString());
 		
-		List<BoardVO> list = service.getList();
+		List<BoardVO> list = service.getList(cri);
+		int total = service.getTotal(cri);
 		
 		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", new pageDTO(cri, total));
 	}
 	
+	//등록화면 이동
+	@GetMapping("/register")
+	public void register() {
+		
+	}	
+	//등록 작업처리
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		log.info("----------register()");
 		
 		service.register(board);
 		
-		System.out.println("-------------------result bno : " + board.getBno());
 		rttr.addFlashAttribute("result", board.getBno());
-		
 		
 		return "redirect:/board/list";
 	}
-	
+	//수정화면 이동
 	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("bno") Long bno, Model model) {
+	public void get(@RequestParam("bno") Long bno, Model model, @ModelAttribute("cri") Criteria cri) {
 		log.info("/get or /modify");
 		model.addAttribute("board", service.get(bno));
 	}
-	
+	//수정 작업처리
 	@PostMapping("/modify")
-	public String modify(BoardVO board, RedirectAttributes rttr) {
+	public String modify(@ModelAttribute BoardVO board, RedirectAttributes rttr, @ModelAttribute("cri") Criteria cri) {
 		log.info("modify : " + board);
 		
 		if(service.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
 		}
+		
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+	
 		return "redirect:/board/list";
 	}
 	
 	@PostMapping("/remove")
-	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr, @ModelAttribute("cri") Criteria cri) {
 		log.info("remove.... " + bno);
 		if(service.remove(bno)){
 			rttr.addFlashAttribute("result","success");
 		}
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("/register")
-	public void register() {
-		
-	}
+	
 	
 }

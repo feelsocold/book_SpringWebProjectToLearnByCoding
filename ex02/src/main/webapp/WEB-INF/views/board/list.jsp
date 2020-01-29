@@ -16,7 +16,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Tables</h1>
+                    <h1 class="page-header">LIST</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -26,7 +26,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Board List Page
-                            <button id="regbtn" type="button" class="btn btn-xs pull-right">REGISTER</button>
+                            <button id="regBtn" type="button" class="btn btn-xs pull-right"
+                            >REGISTER</button>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -45,7 +46,7 @@
                                  		<tr>
                                  			<td><c:out value="${board.bno}" /></td>
                                  			<td>
-                                 				<a href='/board/get?bno=<c:out value="${board.bno }" />'>
+                                 				<a class='move' href='<c:out value="${board.bno }"/>'>
                                  				<c:out value="${board.title }" /> </a>
                                  			</td>
                                  			<td><c:out value="${board.writer }" /></td>
@@ -55,6 +56,31 @@
                                  	</c:forEach>
                                 </tbody>
                             </table>
+                            
+                            <!-- Paging -->
+                            <div class='pull-right'>
+                            	<ul class="pagination">
+                        			
+                        			<c:if test="${pageMaker.prev }">
+	                        			<li class="paginate_button previous"><a href="${pageMaker.startPage -1 }">PREV</a></li>
+                        			</c:if>
+                        			
+									<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+										<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active':'' } ">
+										<a href="${num }">${num }</a></li>
+									</c:forEach>
+									                        			
+                        			<c:if test="${pageMaker.next }">
+                        				<li class="paginate_button next"><a href="${pageMaker.endPage +1 }">NEXT</a></li>
+                        			</c:if>
+                        			    	
+                            	</ul>
+                            </div>
+                            
+                            <form id="actionForm" action="/board/list" method="get">
+                            	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                            	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+                            </form>
                             
                             <!-- Modal추가 -->
                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -91,9 +117,10 @@
         
         <%@include file="../includes/footer.jsp" %>
 
-<script type="text/javascript">
+<script>
 $(document).ready(function() {
 	
+	//글 등록 후 MODAL
 	var result = '<c:out value="${result}" />';
 	checkModal(result);
 	
@@ -108,9 +135,30 @@ $(document).ready(function() {
 			$("#myModal").modal("show");
 	}
 	
-	$("#regDate").on("click", function() {
+	//새로운 글 등록
+	$("#regBtn").on("click", function() {
 		self.location = "/board/register";
 	});
+	
+	//페이징
+	var actionForm = $("#actionForm");	
+	
+	$(".paginate_button a").on("click", function(e){
+		e.preventDefault();
+		console.log("click");
+		//alert($(this).attr("href"));
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
+	});
+	
+	//게시물 조회
+	$(".move").on("click", function(e){
+		e.preventDefault();
+		actionForm.append("<input type='hidden' name='bno' value='" + $(this).attr("href") + "'>");
+		actionForm.attr("action", "/board/get");
+		actionForm.submit();
+	});
+	
 });
 </script>
 

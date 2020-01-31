@@ -3,4 +3,33 @@
 
 <mapper namespace="org.zerock.mapper.ReplyMapper">
 	
+	<insert id="insert">
+		INSERT INTO tb1_reply(rno, bno, reply, replyer)
+		VALUES (seq_reply.nextval, #{bno}, #{reply}, #{replyer})
+	</insert>
+	
+	<select id="read" resultType="org.zerock.domain.ReplyVO">
+		SELECT * 
+		FROM tb1_reply
+		WHERE RNO = #{rno}
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM tb1_reply
+		WHERE rno = #{rno}
+	</delete>
+	
+	<update id="update">
+		UPDATE tb1_reply
+		SET reply = #{reply},
+			updateDate = sysdate
+		WHERE rno = #{rno}
+	</update>
+	
+	<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
+		SELECT rno, bno, reply, replyer, replyDate, updateDate
+		FROM tb1_reply
+		WHERE bno = #{bno}
+		ORDER BY rno ASC
+	</select>
 </mapper>

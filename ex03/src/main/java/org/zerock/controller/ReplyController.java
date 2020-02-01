@@ -31,6 +31,7 @@ public class ReplyController {
 	@Autowired
 	private ReplyService service;
 	
+	//댓글등록
 	@PostMapping(value = "/new",
 			consumes = "application/json",
 			produces = { MediaType.TEXT_PLAIN_VALUE })

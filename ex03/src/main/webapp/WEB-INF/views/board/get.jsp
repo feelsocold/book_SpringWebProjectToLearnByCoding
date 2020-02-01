@@ -13,7 +13,6 @@
 </head>
 <body>
 
-
 		<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -79,8 +78,10 @@
           		<div class="col-lg-12">
 				 <div class="panel panel-default">
 				 	<div class="panel-heading">
-				 		<i class="fa fa-comments fa-fw"></i> REPLY
-				 	</div>
+						<i class="fa fa-comments fa-fw"></i> REPLY
+						<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">
+						NEW REPLY</button>
+					</div>
 				 	<!-- /.panel-heading -->
 				 	<div class="panel-body">
 				 		<ul class="chat">
@@ -104,43 +105,47 @@
           	</div>
           	<!-- ./ end row -->
           
-         </div>  
-   	<%@include file="../includes/footer.jsp" %>
+         </div>
+	<!-- 댓글 추가 Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>댓글</label>
+						<input class="form-control" name="reply" value="NEW REPLY!!!">
+						<label>작성자</label>
+						<input class="form-control" name="replyer" value="replyer">
+					</div>
+					<div class="form-group">
+						<label>Reply Date</label>
+						<input class="form-control" name="replyDate" value=''>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="modalModBtn" type="button" class="btn btn-warning">Modify</button>
+					<button id="modalRemoveBtn" type="button" class="btn btn-danger">Remove</button>
+					<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
+					<button id="modalCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+	<%@include file="../includes/footer.jsp" %>
+	
 </body>
 
 <script type="text/javascript" src="/resources/js/reply.js"></script>
-
-<!-- 페이지가 열리는 순간 댓글리스트 가져오기 -->
-<script type="text/javascript">
-$(document).ready(function() {
-	var bnoValue = '<c:out value = "${board.bno}" />';
-	var replyUL = $(".chat");
-	
-		showList(1);
-		
-		function showList(page){
-			replyService.getList({bno:bnoValue, page: page||1}, function(list){
-				var str = "";
-				
-				   if(list == null || list.length == 0){
-					   replyUL.html("");
-					   
-					   return;
-				   }
-				   for (var i = 0, len = list.length || 0; i < len; i ++){
-					   str += "<li class='left clearfix' data-rno='" + list[i].rno + "'>";
-					   str += "		<div><div class='header'><strong class='primary-font'>";
-					   str += list[i].replyer + "</strong>";
-					   str += "		<small class='pull-right text-muted'>";
-					   str += replyService.displayTime(list[i].replyDate) + "</small></div>";
-					   str += "		<br><p>" + list[i].reply + "</p></div></div></li>";
-				   }
-				replyUL.html(str);
-			   
-			}); //end function
-		} //end showList
-});		
-</script>
 
 <script type="text/javascript">
 	console.log("=========");
@@ -195,20 +200,95 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function() {
+
+	var operForm = $("#operForm");
 	
-		var operForm = $("#operForm");
+	$("button[data-oper='modify']").on("click", function(e){
+		operForm.attr("action", "/board/modify").submit();
+	});
+	
+	$("button[data-oper='list']").on("click", function(e){
+		operForm.find("#bno").remove();
+		operForm.attr("action", "/board/list").submit();
+		operForm.submit();
+	});
+});
+</script>
+
+<!-- 페이지가 열리는 순간 댓글리스트 가져오기 -->
+<script type="text/javascript">
+	$(document).ready(function() {
+					
+		var bnoValue = '<c:out value = "${board.bno}" />';
+		var replyUL = $(".chat");
+	
+		showList(1);
+	
+		function showList(page) {replyService.getList({bno : bnoValue,	page : page || 1},function(list) {
+					
+					var str = "";
+
+					if (list == null
+							|| list.length == 0) {
+						replyUL.html("");
+
+						return;
+					}
+					for (var i = 0, len = list.length || 0; i < len; i++) {
+						str += "<li class='left clearfix' data-rno='" + list[i].rno + "'>";
+						str += "		<div><div class='header'><strong class='primary-font'>";
+						str += list[i].replyer
+								+ "</strong>";
+						str += "		<small class='pull-right text-muted'>";
+						str += replyService.displayTime(list[i].replyDate) + "</small></div>";
+						str += "		<br><p>"
+								+ list[i].reply
+								+ "</p></div></div></li>";
+								
+						alert(replyService.displayTime(list[i].replyDate));		
+					}
+					replyUL.html(str);
+
+				}); //end function
+		} //end showList
+	
+/* 댓글 추가 시작 시 버튼 이벤트 처리 */
+
+	var modal = $(".modal");
+	var modalInputReply = modal.find("input[name='reply']");
+	var modalInputReplyer = modal.find("input[name='replyer']");
+	var modalInputReplyDate = modal.find("input[name='replyDate']");
+	
+	var modalModBtn = $("#modalModBtn");
+	var modalRemoveBtn = $("#modalRemoveBtn");
+	var modalRegisterBtn = $("#modalRegisterBtn");
+	
+	$("#addReplyBtn").on("click", function(e){
 		
-		$("button[data-oper='modify']").on("click", function(e){
-			operForm.attr("action", "/board/modify").submit();
-		});
+		modal.find("input").val("");
+		modalInputReplyDate.closest("div").hide();
+		modal.find("button[id != 'modalCloseBtn']").hide();
 		
-		$("button[data-oper='list']").on("click", function(e){
-			operForm.find("#bno").remove();
-			operForm.attr("action", "/board/list").submit();
-			operForm.submit();
+		modalRegisterBtn.show();
+		
+		$(".modal").modal("show");
+	});
+	
+// 새로운 댓글 추가 처리
+	modalRegisterBtn.on("click", function(e){
+		var reply = {
+				reply : modalInputReply.val(),
+				replyer : modalInputReplyer.val(),
+				bno : bnoValue
+		};
+		replyService.add(reply, function(result){
+			//alert(result);
+			
+			modal.find("input").val("");
+			modal.modal("hide");
 		});
 	});
-
+});
 </script>
 </html>

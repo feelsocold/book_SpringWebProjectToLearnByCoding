@@ -99,9 +99,11 @@ var replyService = (function(){
 		var dateObj = new Date(timeValue);
 		var str = "";
 		
+		//alert(dateObj);
+		
 		if(gap < (1000 * 60 * 60 * 24)) {
 			var hh = dateObj.getHours();
-			var mi = dateObj.getMinues();
+			var mi = dateObj.getMinutes();
 			var ss = dateObj.getSeconds();
 		
 			return [ (hh > 9 ? '' : '0') + hh, ":", (mi > 9 ? '' : '0') + mi,

@@ -30,7 +30,8 @@ var replyService = (function(){
 		$.getJSON("/replies/pages/" + bno + "/" + page + ".json",
 			function(data){
 				if(callback){
-					callback(data);
+					//callback(data);						// 댓글 목록만 가져오는 경우
+					callback(data.replyCnt, data.list);		// 댓글 숫자와 목록을 가져오는 경우
 				}
 			}).fail(function(xhr, status, err){
 		  if (error) {
@@ -102,12 +103,33 @@ var replyService = (function(){
 		//alert(dateObj);
 		
 		if(gap < (1000 * 60 * 60 * 24)) {
-			var hh = dateObj.getHours();
-			var mi = dateObj.getMinutes();
-			var ss = dateObj.getSeconds();
-		
-			return [ (hh > 9 ? '' : '0') + hh, ":", (mi > 9 ? '' : '0') + mi,
-				':', (ss > 9 ? '' : '0') + ss ].join('');
+//			var hh = dateObj.getHours();
+//			var mi = dateObj.getMinutes();
+//			var ss = dateObj.getSeconds();
+//		
+//			return [ (hh > 9 ? '' : '0') + hh, ":", (mi > 9 ? '' : '0') + mi,
+//				':', (ss > 9 ? '' : '0') + ss ].join('');
+			
+			var min = 60 * 1000;
+			//var c = new Date()
+			//var d = new Date(dt);
+			var minsAgo = Math.floor((today - dateObj) / (min));
+
+			var result = {
+				'raw': dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1 > 9 ? '' : '0') + (dateObj.getMonth() + 1) + '-' + (dateObj.getDate() > 9 ? '' : '0') +  dateObj.getDate() + ' ' + (dateObj.getHours() > 9 ? '' : '0') +  dateObj.getHours() + ':' + (dateObj.getMinutes() > 9 ? '' : '0') +  dateObj.getMinutes() + ':'  + (dateObj.getSeconds() > 9 ? '' : '0') +  dateObj.getSeconds(),
+				'formatted': '',
+			};
+
+			if (minsAgo < 60) { // 1시간 내
+				return result.formatted = minsAgo + '분 전  ';
+			} else if (minsAgo < 60 * 24) { // 하루 내
+				return result.formatted = Math.floor(minsAgo / 60) + '시간 전  '; }
+//			} else { // 하루 이상
+//				result.formatted = Math.floor(minsAgo / 60 / 24) + '일 전';
+//			};
+//
+//			return formatDate;
+			
 		}else{
 			var yy = dateObj.getFullYear();
 			var mm = dateObj.getMonth() + 1;
@@ -116,6 +138,7 @@ var replyService = (function(){
 			return [ yy, '/', (mm > 9 ? '' : '0') + mm, '/',
 				(dd > 9 ? '' : '0') + dd ].join('');
 		}
+			
 	};
 	
 	return {

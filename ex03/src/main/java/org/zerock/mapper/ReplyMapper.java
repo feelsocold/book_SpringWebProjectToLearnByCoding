@@ -21,5 +21,6 @@ public interface ReplyMapper extends Serializable{
 			@Param("cri") Criteria cri,
 			@Param("bno") Long bno );
 	
+	public int getCountByBno(Long bno);
 	
 }

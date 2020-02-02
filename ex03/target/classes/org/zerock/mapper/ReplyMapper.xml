@@ -4,8 +4,8 @@
 <mapper namespace="org.zerock.mapper.ReplyMapper">
 	
 	<insert id="insert">
-		INSERT INTO tb1_reply(rno, bno, reply, replyer)
-		VALUES (seq_reply.nextval, #{bno}, #{reply}, #{replyer})
+		INSERT INTO tb1_reply(rno, bno, reply, replyer, replydate)
+		VALUES (seq_reply.nextval, #{bno}, #{reply}, #{replyer}, sysdate + 9/24)
 	</insert>
 	
 	<select id="read" resultType="org.zerock.domain.ReplyVO">
@@ -22,14 +22,30 @@
 	<update id="update">
 		UPDATE tb1_reply
 		SET reply = #{reply},
-			updateDate = sysdate
+			updateDate = sysdate + 9/24
 		WHERE rno = #{rno}
 	</update>
 	
 	<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
+	<![CDATA[
 		SELECT rno, bno, reply, replyer, replyDate, updateDate
-		FROM tb1_reply
-		WHERE bno = #{bno}
-		ORDER BY rno ASC
+		FROM(
+			SELECT /*+INDEX(tb1_reply idx_reply) */
+		    	rownum rn, bno, rno, reply, replyer, replyDate, updateDate
+		    FROM tb1_reply
+		    WHERE bno = #{bno}
+		    		AND rno > 0
+		    		AND rownum <= #{cri.pageNum} * #{cri.amount}
+		    )		
+		WHERE rn > (#{cri.pageNum} -1) * #{cri.amount}
+	]]>
+	</select>
+	
+	<select id="getCountByBno" resultType="int">
+		<![CDATA[
+			SELECT count(rno) 
+			FROM tb1_reply
+			WHERE bno = #{bno}
+		]]>
 	</select>
 </mapper>

@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8">x
 <title>Insert title here</title>
 </head>
 <body>
@@ -36,6 +36,11 @@
                             		<label>Bno</label> <input class="form-control" name="bno" 
                             		value='<c:out value="${board.bno }" />' readonly="readonly">
                             	</div>
+
+                            	<div class="form-group">
+                            		<label>Writer</label> <input class="form-control" name="writer"
+                            		value='<c:out value="${board.writer }" />' readonly="readonly">
+                            	</div>
                             	
                             	<div class="form-group">
 									<label>Title</label>
@@ -46,12 +51,6 @@
                             	<div class="form-group">
                             		<label>Text area</label>
                             		<textarea class="form-control" rows="5" name='content' readonly='readonly' style="text-align: left;"><c:out value="${board.content }" /></textarea>
-                            		
-                            	</div>
-                            	
-                            	<div class="form-group">
-                            		<label>Writer</label> <input class="form-control" name="writer"
-                            		value='<c:out value="${board.writer }" />' readonly="readonly">
                             	</div>
                             	
                             	<button data-oper="modify" class="btn btn-default"
@@ -100,11 +99,14 @@
 				 		<!-- ./ end ul -->
 				 	</div>
 				 	<!-- /.panel-body -->
+				 	
+				 	<div class='panel-footer'>
+				 	</div>
+				 	
 				 </div>          		
           		</div>
           	</div>
           	<!-- ./ end row -->
-          
          </div>
 	<!-- 댓글 추가 Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -146,7 +148,6 @@
 </body>
 
 <script type="text/javascript" src="/resources/js/reply.js"></script>
-
 <script type="text/javascript">
 	console.log("=========");
 	console.log("JS TEST");
@@ -171,8 +172,8 @@
 		
 	});
 	
-	//댓글 삭제
-	replyService.remove(33, function(count) {
+	//댓글 삭제 test
+	/* replyService.remove(33, function(count) {
 		
 		console.log(count);
 		
@@ -181,16 +182,16 @@
 		}
 	}, function(err){
 		//alert("ERROR~");
-	});
+	}); */
 	
-	//댓글 수정
-	replyService.update({
+	//댓글 수정 test
+	/* replyService.update({
 		rno : 22,
 		bno : bnoValue,
 		reply : "MODIFIED REPLY ... "
 	}, function(result){
 		alert("수정 완료");
-	});
+	}); */
 	
 	//특정댓글 조회
 	replyService.get(29, function(data){
@@ -225,7 +226,7 @@ $(document).ready(function() {
 	
 		showList(1);
 	
-		function showList(page) {replyService.getList({bno : bnoValue,	page : page || 1},function(list) {
+/*		function showList(page) {replyService.getList({bno : bnoValue,	page : page || 1},function(list) {
 					
 					var str = "";
 
@@ -246,12 +247,50 @@ $(document).ready(function() {
 								+ list[i].reply
 								+ "</p></div></div></li>";
 								
-						alert(replyService.displayTime(list[i].replyDate));		
 					}
 					replyUL.html(str);
 
-				}); //end function
-		} //end showList
+				}); //end function */
+		 function showList(page){
+			console.log("show REPLYLIST PAGE-" + page);
+			replyService.getList({bno:bnoValue, page : page || 1},
+			
+				function(replyCnt, list){
+					
+					console.log("replyCnt : " + replyCnt );
+					console.log("list : " + list);
+					console.log(list);
+					
+					if(page == -1){		//새로운 댓글 추가시 호출하여 댓글의 숫자를 파악하고, 마지막 페이지를 호출한다.
+						pageNum = Math.ceil(replyCnt/10.0);
+						showList(pageNum);
+						return;
+					}
+					
+					var str = "";
+					
+					if(list == null || list.length == 0){
+						return;
+					}
+					
+					for (var i = 0, len = list.length || 0; i < len; i++) {
+						str += "<li class='left clearfix' data-rno='" + list[i].rno + "'>";
+						str += "		<div><div class='header'><strong class='primary-font'>";
+						str += list[i].replyer
+								+ "</strong>";
+						str += "		<small class='pull-right text-muted'>";
+						str += replyService.displayTime(list[i].replyDate) + "</small></div>";
+						str += "		<br><p>"
+								+ list[i].reply
+								+ "</p></div></div></li>";
+								
+					}
+					replyUL.html(str);	
+		 		
+					showReplyPage(replyCnt);
+						
+			}); // end function		
+	} //end showList
 	
 /* 댓글 추가 시작 시 버튼 이벤트 처리 */
 
@@ -275,7 +314,7 @@ $(document).ready(function() {
 		$(".modal").modal("show");
 	});
 	
-// 새로운 댓글 추가 처리
+/* 새로운 댓글 추가 처리 */
 	modalRegisterBtn.on("click", function(e){
 		var reply = {
 				reply : modalInputReply.val(),
@@ -287,8 +326,118 @@ $(document).ready(function() {
 			
 			modal.find("input").val("");
 			modal.modal("hide");
+			
+			//showList(1);
+			showList(-1);
 		});
 	});
-});
+
+/* 댓글 클릭 이벤트 처리 */
+
+	//댓글 조회 이벤트 처리
+	$(".chat").on("click", "li", function(e){
+		var rno = $(this).data("rno");
+		
+		replyService.get(rno, function(reply){
+			modalInputReply.val(reply.reply);
+			modalInputReplyer.val(reply.replyer).attr("readonly", "readonly");
+			modalInputReplyDate.val(replyService.displayTime(reply.replyDate)).attr("readonly", "readonly");
+			modal.data("rno", reply.rno);
+
+			modal.find("button[id != 'modalCloseBtn']").hide();
+			modalModBtn.show();
+			modalRemoveBtn.show();
+			
+			$(".modal").modal("show");
+		});
+	});
+	
+	//댓글 수정
+	modalModBtn.on("click", function(e){
+		var reply = { rno:modal.data("rno"), reply : modalInputReply.val() };
+
+		replyService.update(reply, function(result){
+			alert(result);
+			modal.modal("hide");
+			showList(1);
+			showList(pageNum);
+		});
+	});	
+	
+	//댓글 삭제
+	modalRemoveBtn.on("click", function(e){
+		var rno = modal.data("rno");
+		
+		replyService.remove(rno, function(result){
+			alert(result);
+			modal.modal("hide");
+			showList(1);
+			showList(pageNum);
+		});
+	});
+	
+/* 댓글페이징 */
+ 	var pageNum = 1;
+ 	var replyPageFooter = $(".panel-footer");
+ 	
+ 	function showReplyPage(replyCnt){
+ 			
+ 		var endNum = Math.ceil(pageNum / 10.0) * 10;
+ 		var startNum = endNum - 9;
+ 		
+ 		var prev = startNum != 1;
+ 		var next = false;
+ 		
+ 		if(endNum * 10 >= replyCnt){
+ 			endNum = Math.ceil(replyCnt/10.0);
+ 		}
+ 		if(endNum * 10 < replyCnt){
+ 			next = true;
+ 		}
+ 		
+ 		var str = "<ul class='pagination pull-right'>";
+ 		
+ 		if(prev){
+ 			str += "<li class='page-item'><a class='page-link' href='" + (startNum -1) + "'>PRE</a></li>";
+ 		}
+ 		
+ 		for(var i = startNum; i <= endNum; i++){
+ 			var active = pageNum == i? "active":"";
+ 			str += "<li class='page-item " + active + " '><a class='page-link' href='" + i + "'>" + i + "</a></li>";
+ 		}
+ 		
+ 		if(next){
+ 			str += "<li class='page-item'><a class='page-link' href='" + (endNum + 1) + "'>NEXT</a></li>";
+ 		}
+ 		
+ 		str += "</ul></div>";
+ 		
+ 		console.log(str);
+ 		
+ 		replyPageFooter.html("ㅇㅅㅇ");
+ 		replyPageFooter.html(str);
+ 	}
+ 	
+ 	//댓글 페이지 이동
+ 	replyPageFooter.on("click", "li a", function(e){
+		e.preventDefault();
+ 		console.log("page click");
+ 		
+		var targetPageNum = $(this).attr("href");
+		
+		console.log("targetPageNum : " + targetPageNum);
+		
+		pageNum = targetPageNum;
+		
+		showList(pageNum);
+ 	})
+ 	
+
+	
+});	
+	
+	
+	
+	
 </script>
 </html>

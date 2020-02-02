@@ -17,4 +17,6 @@ ADD COnSTRAINT fk_reply_board
 FOREIGN KEY (bno) REFERENCES tb1_board (bno);
 
 
+CREATE INDEX idx_reply On tb1_reply (bno DESC, rno DESC);
+
 COMMIT

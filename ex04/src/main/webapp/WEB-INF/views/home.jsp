@@ -11,4 +11,9 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 </body>
+<script>
+	location.href = "/board/list";
+</script>
 </html>
+
+

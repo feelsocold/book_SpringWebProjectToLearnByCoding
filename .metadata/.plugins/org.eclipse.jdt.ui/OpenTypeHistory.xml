@@ -2,4 +2,7 @@
 <typeInfoHistroy>
 <typeInfo handle="=ex02/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;org.zerock.service{BoardService.java[BoardService" modifiers="513" timestamp="1580302237000"/>
 <typeInfo handle="=ex03/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;org.zerock.service{ReplyService.java[ReplyService" modifiers="513" timestamp="1580640973000"/>
+<typeInfo handle="=ex04/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;org.zerock.service{SampleService.java[SampleService" modifiers="513" timestamp="1580805385000"/>
+<typeInfo handle="=ex04/\/Library\/Java\/JavaVirtualMachines\/jdk1.8.0_231.jdk\/Contents\/Home\/jre\/lib\/rt.jar=/maven.pomderived=/true=/=/javadoc_location=/https:\/\/docs.oracle.com\/javase\/8\/docs\/api\/=/&lt;java.io(Serializable.class[Serializable" modifiers="1537" timestamp="1570271994000"/>
+<typeInfo handle="=ex04/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;org.zerock.service{SampleTxService.java[SampleTxService" modifiers="513" timestamp="1580821999000"/>
 </typeInfoHistroy>

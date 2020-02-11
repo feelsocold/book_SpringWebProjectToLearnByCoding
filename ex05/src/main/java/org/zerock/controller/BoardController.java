@@ -3,6 +3,9 @@ package org.zerock.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.BoardAttachVO;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.pageDTO;
@@ -43,12 +48,17 @@ public class BoardController {
 	//등록화면 이동
 	@GetMapping("/register")
 	public void register() {
-		
+		log.info("register()");
 	}	
 	//등록 작업처리
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
-		log.info("----------register()");
+		log.info("----------register() POST");
+		log.info("register : " + board);
+
+		if(board.getAttachList() != null) {
+			board.getAttachList().forEach(attach -> log.info(attach));
+		}
 		
 		service.register(board);
 		
@@ -92,6 +102,18 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	
+	//첨부파일 리스트
+	@GetMapping(value = "/getAttachList",
+						produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
+		
+		log.info("getAttachList " + bno);
+		
+		return new ResponseEntity<>(service.getAttachList(bno), HttpStatus.OK);
+	}
+	
 	
 	
 	

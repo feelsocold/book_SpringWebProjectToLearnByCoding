@@ -5,7 +5,7 @@
 
 	<insert id="insert">
 		INSERT INTO tb1_attach (uuid, uploadPath, filename, filetype, bno)
-		VALUES (#{uuid}, #{uploadPath}, #{filename}, #{filetype}, #{bno} )
+		VALUES (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno} )
 	</insert>
 	
 	<delete id="delete">

@@ -141,7 +141,7 @@ public class UploadController {
 			attachDTO.setFileName(uploadFileName);
 			
 			UUID uuid = UUID.randomUUID();
-			uploadFileName = uuid.toString() + "_" + uploadFileName;
+			uploadFileName = (uuid.toString() + "_" + uploadFileName).trim();
 			log.info("UUID uploadFILENAME : " + uploadFileName);
 			//File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
 			
@@ -151,7 +151,7 @@ public class UploadController {
 				
 				attachDTO.setUuid(uuid.toString());
 				attachDTO.setUploadPath(uploadFolderPath);
-				log.info("!!!!!!!!!!!!"+saveFile);
+				log.info("! SAVE FILE" +  saveFile);
 				
 				// check image type file
 				if(checkImageType(saveFile)) {
@@ -161,7 +161,7 @@ public class UploadController {
 					FileOutputStream thumbnail 
 						= new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
 					
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 400, 400);
+					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 200, 200);
 					
 					thumbnail.close();
 				}
@@ -186,12 +186,12 @@ public class UploadController {
 	@GetMapping("/display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName){
+		log.info("getFile()");
+		log.info("fileName : " + fileName.trim());
 		
-		log.info("fileName : " + fileName);
+		File file = new File("/Users/MACBOHAN/eclipse/temp/" + fileName.trim());
 		
-		File file = new File("/Users/MACBOHAN/eclipse/temp/" + fileName);
-		
-		log.info("file : " + file);
+		log.info("!!displayed file : " + file);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -255,7 +255,7 @@ public class UploadController {
 		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	} //end function
 	
-	@PostMapping("deleteFile")
+	@PostMapping("/deleteFile")
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName, String type){
 		log.info("deleteFile : " + fileName);
@@ -263,7 +263,7 @@ public class UploadController {
 		File file;
 		
 		try {
-			file = new File("/Users/MACBOHAN/eclipse/temp" + URLDecoder.decode( fileName, "UTF-8"));
+			file = new File("/Users/MACBOHAN/eclipse/temp/" + URLDecoder.decode( fileName, "UTF-8"));
 			
 			file.delete();
 			
@@ -280,6 +280,6 @@ public class UploadController {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>("deleted", HttpStatus.OK);
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 }

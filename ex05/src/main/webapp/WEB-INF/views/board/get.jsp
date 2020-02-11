@@ -8,8 +8,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">x
+<meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.uploladResult{
+		width:100%;
+		background-color:gray:
+	}
+	.uploadResult ul{
+		display:flex;
+		flex-flow:row;
+		justify-content:center;
+		align-items:center;
+	}
+	.uploadResult ul li{
+		list-style:none;
+		padding:10px;
+		align-content:center;
+		text-align:center;
+	}
+	.uploadResult ul li img{
+		width:100px;
+	}
+	.uploadResult ul li span{
+		color:white;
+	}
+	.bigPictureWrapper{
+		position : absolute;
+		display:none;
+		justify-content:center;
+		align-items:center;
+		top:0%;
+		width:100%;
+		height:100%;
+		background-color:grey;
+		z-index:100;
+		background:rgba(255,255,255,0.5);
+	}
+	.bigPicture{
+		position:relative;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+	}
+	.bigPicture img{
+		width:600px;
+		cursor: pointer;
+	}
+	li img{
+		cursor: pointer;
+	}
+</style>
 </head>
 <body>
 
@@ -23,7 +72,7 @@
             <!-- /.row -->
             
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12" >
                     <div class="panel panel-default">
                         
                         <div class="panel-heading">
@@ -71,8 +120,27 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-            
-         <!-- 댓글리스트 div 시작-->
+
+       <!-- 첨부파일 리스트 시작 -->
+       		<div class="row">
+          		<div class="col-lg-12">
+				 <div class="panel panel-default">
+				 	<div class="panel-heading">Files</div>
+             		<div class="panel-body">
+             			<div class="uploadResult">
+             				<ul>
+             				</ul>
+             			</div>
+             			<!-- ./ uploadResult -->
+             	 	</div>	
+             	 <!-- ./ panel-default -->
+             	 </div>
+             	 <!-- ./ col-lg-12 -->
+             </div>
+             <!-- ./ row -->	 		
+
+             			
+       <!-- 댓글리스트 div 시작-->
           	<div class="row">
           		<div class="col-lg-12">
 				 <div class="panel panel-default">
@@ -88,11 +156,11 @@
 				 			<li class="left clearfix" data-rno='12'>
 				 			  <div>
 				 			  	<div class="header">
-				 			  		<strong class="primary-font">user00</strong>
-				 			  		<small class="pull-right text-muted">2018-01-01 13:13</small>
+				 			  		<strong class="primary-font">밀란 쿤데라</strong>
+				 			  		<small class="pull-right text-muted">2030-01-01 13:13</small>
 				 			  	</div>
 				 			  	<br>
-				 			  	<p>GOOD</p>
+				 			  	<p>댓글이 아직 없습니다.</p>
 				 			  </div>
 				 			<!-- end reply -->
 				 		</ul>
@@ -108,6 +176,8 @@
           	</div>
           	<!-- ./ end row -->
          </div>
+      
+     </div>    
 	<!-- 댓글 추가 Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
@@ -145,9 +215,16 @@
 
 	<%@include file="../includes/footer.jsp" %>
 	
+	<div class="bigPictureWrapper">
+		<div class="bigPicture">
+		
+		</div>
+	</div>
+	
 </body>
 
 <script type="text/javascript" src="/resources/js/reply.js"></script>
+
 <script type="text/javascript">
 	console.log("=========");
 	console.log("JS TEST");
@@ -219,12 +296,12 @@ $(document).ready(function() {
 
 <!-- 페이지가 열리는 순간 댓글리스트 가져오기 -->
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function() {
 					
-		var bnoValue = '<c:out value = "${board.bno}" />';
-		var replyUL = $(".chat");
-	
-		showList(1);
+	var bnoValue = '<c:out value = "${board.bno}" />';
+	var replyUL = $(".chat");
+
+	showList(1);
 	
 /*		function showList(page) {replyService.getList({bno : bnoValue,	page : page || 1},function(list) {
 					
@@ -251,45 +328,45 @@ $(document).ready(function() {
 					replyUL.html(str);
 
 				}); //end function */
-		 function showList(page){
-			console.log("show REPLYLIST PAGE-" + page);
-			replyService.getList({bno:bnoValue, page : page || 1},
-			
-				function(replyCnt, list){
+	 function showList(page){
+		console.log("show REPLYLIST PAGE-" + page);
+		replyService.getList({bno:bnoValue, page : page || 1},
+		
+			function(replyCnt, list){
+				
+				console.log("replyCnt : " + replyCnt );
+				console.log("list : " + list);
+				console.log(list);
+				
+				if(page == -1){		//새로운 댓글 추가시 호출하여 댓글의 숫자를 파악하고, 마지막 페이지를 호출한다.
+					pageNum = Math.ceil(replyCnt/10.0);
+					showList(pageNum);
+					return;
+				}
+				
+				var str = "";
+				
+				if(list == null || list.length == 0){
+					return;
+				}
+				
+				for (var i = 0, len = list.length || 0; i < len; i++) {
+					str += "<li class='left clearfix' data-rno='" + list[i].rno + "'>";
+					str += "		<div><div class='header'><strong class='primary-font'>";
+					str += list[i].replyer
+							+ "</strong>";
+					str += "		<small class='pull-right text-muted'>";
+					str += replyService.displayTime(list[i].replyDate) + "</small></div>";
+					str += "		<br><p>"
+							+ list[i].reply
+							+ "</p></div></div></li>";
+							
+				}
+				replyUL.html(str);	
+	 		
+				showReplyPage(replyCnt);
 					
-					console.log("replyCnt : " + replyCnt );
-					console.log("list : " + list);
-					console.log(list);
-					
-					if(page == -1){		//새로운 댓글 추가시 호출하여 댓글의 숫자를 파악하고, 마지막 페이지를 호출한다.
-						pageNum = Math.ceil(replyCnt/10.0);
-						showList(pageNum);
-						return;
-					}
-					
-					var str = "";
-					
-					if(list == null || list.length == 0){
-						return;
-					}
-					
-					for (var i = 0, len = list.length || 0; i < len; i++) {
-						str += "<li class='left clearfix' data-rno='" + list[i].rno + "'>";
-						str += "		<div><div class='header'><strong class='primary-font'>";
-						str += list[i].replyer
-								+ "</strong>";
-						str += "		<small class='pull-right text-muted'>";
-						str += replyService.displayTime(list[i].replyDate) + "</small></div>";
-						str += "		<br><p>"
-								+ list[i].reply
-								+ "</p></div></div></li>";
-								
-					}
-					replyUL.html(str);	
-		 		
-					showReplyPage(replyCnt);
-						
-			}); // end function		
+		}); // end function		
 	} //end showList
 	
 /* 댓글 추가 시작 시 버튼 이벤트 처리 */
@@ -312,7 +389,7 @@ $(document).ready(function() {
 		modalRegisterBtn.show();
 		
 		$(".modal").modal("show");
-	});
+	}); 
 	
 /* 새로운 댓글 추가 처리 */
 	modalRegisterBtn.on("click", function(e){
@@ -431,14 +508,92 @@ $(document).ready(function() {
 		pageNum = targetPageNum;
 		
 		showList(pageNum);
- 	})
+ 	}) //replyPageFoot end
  	
+});	// end $(document).ready 
+</script>
+
+<!-- 첨부파일 불러오기 -->
+<script type="text/javascript">
+$(document).ready(function() {	
+	(function() {
+		var bno = '<c:out value="${board.bno}"/>';
+		
+		$.getJSON("/board/getAttachList", {bno:bno}, function(arr){
+			
+			console.log(arr);
+			
+			var str = "";
+			
+			$(arr).each(function(i, attach){
+				
+				// image type
+				if(attach.fileType){
+					var fileCallPath = encodeURIComponent( attach.uploadPath + "/s_" + attach.uuid + "_"+attach.fileName);
+
+					str += "<li data-path='" + attach.uploadPath + "' data-uuid='" + attach.uuid;
+					str += "	' data-filename='" + attach.fileName + "' data-type='" + attach.fileType + "'> <div>";
+					str += "<img src='/display?fileName=" + fileCallPath + "'>";
+					str += "</div>";
+					str += "</li>";
+				}
+				//file type
+				else{
+					str += "<li data-path='" + attach.uploadPath + "' data-uuid='" + attach.uuid;
+					str += "	' data-filename='" + attach.fileName + "' data-type='" + attach.fileType + "'> <div>";
+					
+					str += "<span> " + attach.fileName + "</span><br/>";
+					str += "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQqBkWVMOwxWPv4jDWhaytTugDikyu4f45V4-qWOrLnP1e51XBl' style='width:15px;height:15px;float:left;'>";
+					str += "</div></li>";
+				}
+				
+				$(".uploadResult ul").html(str);
+				
+			});	// end getJson
+		
+		}); 	// end getJson
+	})();		// end function
+	
 
 	
-});	
+//첨부파일 클릭시 이벤트
+	$(".uploadResult").on("click", "li", function(e){
+		console.log("view image");
+		
+		var liObj = $(this); 
+
+		var path = encodeURIComponent( liObj.data("path") + "/" + liObj.data("uuid").trim() + "_" + liObj.data("filename") );
+		
+		if(liObj.data("type")){
+			showImage(path.replace(new RegExp(/\\/g), "/"));
+		}else{ // 이미지 파일이 아니면 다운로드 ㄱ
+			//download
+			self.location = "/download?fileName=" + path;
+		}
+	});
+	
+	//원본 이미지 보여주기
+	function showImage(fileCallPath){
+	//	alert(fileCallPath);
+		$(".bigPictureWrapper").css("display", "flex").show();
+		
+		$(".bigPicture").html("<img src='/display?fileName=" + fileCallPath + "'>")
+						.animate({width:'100%', height:'100%'}, 1000);
+	}
+	//원본 이미지 창 닫기
+	$(".bigPictureWrapper").on("click", function(e){
+		$(".bigPicture").animate({width:'0%', height:'0%'}, 1000);
+		setTimeout(function(){
+			$('.bigPictureWrapper').hide();
+		}, 1000);
+	});
 	
 	
 	
 	
+});	// end $(document).ready
 </script>
+
+	
+
 </html>

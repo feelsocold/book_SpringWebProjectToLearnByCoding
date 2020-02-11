@@ -18,4 +18,9 @@
 		FROM tb1_attach
 		WHERE bno = #{bno}
 	</select>
+	
+	<delete id="deleteAll">
+		DELETE tb1_attach
+		WHERE bno = #{bno}
+	</delete>
 </mapper>

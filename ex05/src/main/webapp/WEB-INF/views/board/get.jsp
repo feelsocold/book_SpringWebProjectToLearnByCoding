@@ -217,7 +217,6 @@
 	
 	<div class="bigPictureWrapper">
 		<div class="bigPicture">
-		
 		</div>
 	</div>
 	
@@ -529,9 +528,9 @@ $(document).ready(function() {
 				
 				// image type
 				if(attach.fileType){
-					var fileCallPath = encodeURIComponent( attach.uploadPath + "/s_" + attach.uuid + "_"+attach.fileName);
+					var fileCallPath = encodeURIComponent( attach.uploadPath + "/s_" + attach.uuid.trim() + "_"+attach.fileName);
 
-					str += "<li data-path='" + attach.uploadPath + "' data-uuid='" + attach.uuid;
+					str += "<li data-path='" + attach.uploadPath + "' data-uuid='" + attach.uuid.trim();
 					str += "	' data-filename='" + attach.fileName + "' data-type='" + attach.fileType + "'> <div>";
 					str += "<img src='/display?fileName=" + fileCallPath + "'>";
 					str += "</div>";
@@ -539,7 +538,7 @@ $(document).ready(function() {
 				}
 				//file type
 				else{
-					str += "<li data-path='" + attach.uploadPath + "' data-uuid='" + attach.uuid;
+					str += "<li data-path='" + attach.uploadPath + "' data-uuid='" + attach.uuid.trim();
 					str += "	' data-filename='" + attach.fileName + "' data-type='" + attach.fileType + "'> <div>";
 					
 					str += "<span> " + attach.fileName + "</span><br/>";

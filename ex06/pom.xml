@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.zerock</groupId>
 	<artifactId>controller</artifactId>
-	<name>ex06</name>
+	<name>ex02</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
-		<java-version>1.6</java-version>
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
-		<org.aspectj-version>1.6.10</org.aspectj-version>
-		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<java-version>1.8</java-version>
+		<org.springframework-version>5.0.7.RELEASE</org.springframework-version>
+		<org.aspectj-version>1.9.0</org.aspectj-version>
+		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -39,6 +39,14 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>	
+		<!-- aspectjweaver -->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>1.9.4</version>
+		    <scope>runtime</scope>
+		</dependency>
+		
 		
 		<!-- Logging -->
 		<dependency>
@@ -58,7 +66,7 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.15</version>
@@ -81,8 +89,8 @@
 				</exclusion>
 			</exclusions>
 			<scope>runtime</scope>
-		</dependency>
-
+		</dependency> -->
+ 
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
@@ -93,8 +101,8 @@
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -113,10 +121,136 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>        
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<!-- jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<!-- HikariCp -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>2.7.4</version>
+		</dependency>
+		<!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<!-- log4jdbc -->
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+			<version>1.16</version>
+		</dependency>
+		<!-- jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.9.4</version>
+		</dependency>
+		<!-- gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+		<!-- thumbnailator -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.8</version>
+		</dependency>
+		<!-- jmimemagic -->
+		<dependency>
+		    <groupId>net.sf.jmimemagic</groupId>
+		    <artifactId>jmimemagic</artifactId>
+	   		<version>0.1.5</version>
+		</dependency>
+		<!-- jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>2.9.9</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.9</version>
+		</dependency>
+		<!-- Quartz -->
+		<dependency>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz</artifactId>
+		    <version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<!-- Spring Security -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>5.0.6.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>5.0.6.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>5.0.6.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>5.0.6.RELEASE</version>
+		</dependency>
+
 	</dependencies>
+	
     <build>
         <plugins>
             <plugin>
@@ -138,8 +272,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>

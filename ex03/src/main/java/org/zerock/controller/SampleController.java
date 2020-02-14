@@ -31,10 +31,12 @@ public class SampleController {
 			
 		log.info("MIME TYPE : " + MediaType.TEXT_PLAIN_VALUE);
 		
-		return "ㅎㅇ";
+		return "ㅎㅇㅎㅇㅎㅇ";
 	}
 	
-	@GetMapping(value = "/getSample", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@GetMapping(value = "/getSample", 
+				  produces = {MediaType.APPLICATION_JSON_UTF8_VALUE,
+							  MediaType.APPLICATION_XML_VALUE })
 	public SampleVO getSample() {
 		return new SampleVO(112, "스타", "트렉");
 	}

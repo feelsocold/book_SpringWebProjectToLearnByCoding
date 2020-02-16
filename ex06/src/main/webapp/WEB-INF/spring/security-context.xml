@@ -7,12 +7,14 @@ xsi:schemaLocation="http://www.springframework.org/schema/security http://www.sp
 
 <!-- 접근제한 에러 핸들러 -->
 	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
-<!-- 로그인 핸들러 -->
+<!-- 로그인 성공 핸들러 -->
 	<bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
 <!-- 패스워드 인코더 -->
 	<!-- <bean id="customPasswordEncoder" class="org.zerock.security.CustomNoOpPasswordEncoder"></bean> -->
 	<!-- bcypt 사용 -->
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+<!-- 유저디테일서비스 -->
+	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>	
 	
 	<security:http auto-config="true"  use-expressions="true">
 		<security:intercept-url pattern="/sample/all" access="permitAll"/>
@@ -31,17 +33,20 @@ xsi:schemaLocation="http://www.springframework.org/schema/security http://www.sp
 	</security:http>	
 	
 	<security:authentication-manager>
-		<security:authentication-provider>
+		<!-- <security:authentication-provider> -->
+		<security:authentication-provider user-service-ref="customUserDetailsService">
 			<!-- <security:user-service>
 				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER" />		
 				<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN" />		
 			</security:user-service> -->
 			
+		<!-- root-context.xml -> datasource --> 
 			<!-- <security:jdbc-user-service data-source-ref="dataSource"/> -->
-			<security:jdbc-user-service 
+		<!-- 쿼리를 직접작성 -->
+			<!-- <security:jdbc-user-service 
 				data-source-ref="dataSource"
 				users-by-username-query="SELECT userid, userpw, enabled FROM tb1_member WHERE userid = ? "
-				authorities-by-username-query="SELECT userid, auth FROM tb1_member_auth WHERE userid = ? " />
+				authorities-by-username-query="SELECT userid, auth FROM tb1_member_auth WHERE userid = ? " /> -->
 					
 			<!-- <security:password-encoder ref="customPasswordEncoder"/> -->
 			<security:password-encoder ref="bcryptPasswordEncoder"/>

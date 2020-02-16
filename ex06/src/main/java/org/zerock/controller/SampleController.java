@@ -27,9 +27,4 @@ public class SampleController {
 		log.info("admin only");
 	}
 	
-	@GetMapping("/bohan")
-	public void bohan() {
-		log.info(".bbb.b.b.b.b.b.");
-	}
-	
 }

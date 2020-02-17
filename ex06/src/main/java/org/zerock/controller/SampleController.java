@@ -12,9 +12,8 @@ import lombok.extern.log4j.Log4j;
 public class SampleController {
 	
 	@GetMapping("/all")
-	public String doAll() {
+	public void doAll() {
 		log.info("do all can access everybody");
-		return "all";
 	}
 	
 	@GetMapping("/member")

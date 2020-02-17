@@ -97,6 +97,7 @@ public class MemberTests {
 				
 				pstmt.executeUpdate();
 				
+				
 			}catch (Exception e) {
 				e.printStackTrace();
 			}finally {

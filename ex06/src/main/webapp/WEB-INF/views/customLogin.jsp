@@ -18,11 +18,17 @@
 	
 	<form method="post" action="/login">
 		<div>
-			<input type="text" name="username" value="admin">
+			ID<input type="text" name="username">
 		</div>
 		<div>
-			<input type="password" name="password" value="admin">
+			PW<input type="password" name="password">
 		</div>
+		<div>
+			<input type='checkbox' name='remember-me'> Remember ME
+			
+		</div>
+		
+		
 		<div>
 			<input type="submit">
 		</div>

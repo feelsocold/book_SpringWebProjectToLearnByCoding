@@ -25,7 +25,6 @@
 		</div>
 		<div>
 			<input type='checkbox' name='remember-me'> Remember ME
-			
 		</div>
 		
 		

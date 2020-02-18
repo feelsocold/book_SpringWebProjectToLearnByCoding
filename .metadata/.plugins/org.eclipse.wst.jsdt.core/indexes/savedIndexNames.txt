@@ -10,7 +10,6 @@ INDEX VERSION 1.4+/Users/MACBOHAN/Documents/elevatingcodingclub/book_SpringWebPr
 1263908261.index
 196563895.index
 1563510744.index
-2271458145.index
 3292010082.index
 3848616054.index
 3576766470.index

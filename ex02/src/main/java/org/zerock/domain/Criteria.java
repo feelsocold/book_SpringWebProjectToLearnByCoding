@@ -17,6 +17,7 @@ public class Criteria {
 	private String type;
 	private String keyword;
 	
+	//기본값으로 지정
 	public Criteria() {
 		this(1, 10);
 	}

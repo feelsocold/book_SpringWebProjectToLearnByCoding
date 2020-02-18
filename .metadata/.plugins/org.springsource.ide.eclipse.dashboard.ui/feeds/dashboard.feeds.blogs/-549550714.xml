@@ -5,7 +5,7 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2020-02-14T09:41:48Z</updated>
+  <updated>2020-02-14T09:41:00Z</updated>
   <entry>
     <title>Announcing: The NEW Spring Website!</title>
     <link rel="alternate" href="https://spring.io/blog/2020/02/14/announcing-the-new-spring-website" />
@@ -14,7 +14,7 @@
       <name>Ben Wilcock</name>
     </author>
     <id>tag:spring.io,2020-02-13:3960</id>
-    <updated>2020-02-14T09:41:48Z</updated>
+    <updated>2020-02-14T09:41:00Z</updated>
     <content type="html">&lt;p&gt;Spring is constantly evolving and always innovating while being consistent where it matters: delivering a reliable framework to help you build maintainable software, faster. In the last few years, the Spring contributors have worked hard to bring the predictable Spring experience to microservices, serverless, streams, reactive, batch, data, and new languages like Kotlin. Over the coming year, you&amp;rsquo;ll see many more examples of this, including some cool new features that we&amp;rsquo;re just dying to share with you.&lt;/p&gt;
 &lt;p&gt;However, there was one area of Spring that we felt was desperately in need of some love and attention—the dusty old spring.io website. Very little changed on the site in the last few years. And that presented us with a problem: how do you take a well-used website that&amp;rsquo;s trusted by millions of developers, and make it better?&lt;/p&gt;&lt;h2&gt;&lt;a href="#we-love-a-challenge-hellip" class="anchor" name="we-love-a-challenge-hellip"&gt;&lt;/a&gt;We love a challenge&amp;hellip;&lt;/h2&gt;
 &lt;p&gt;We started with motivation. If we changed the site, what would our motivation be for that change? What did we want folks to get out of it? What should it feel like to use? How should it evolve?&lt;/p&gt;
@@ -30,11 +30,11 @@
   &lt;p&gt;&lt;em&gt;Researching a topic?&lt;/em&gt; Try the topic pages including &lt;a href="https://spring.io/microservices"&gt;Microservices&lt;/a&gt;, &lt;a href="https://spring.io/cloud"&gt;Cloud&lt;/a&gt;, and &lt;a href="https://spring.io/serverless"&gt;Serverless&lt;/a&gt;&lt;br/&gt;&lt;em&gt;Going for gold?&lt;/em&gt; New &lt;a href="https://spring.io/learn"&gt;Learn&lt;/a&gt; and &lt;a href="https://spring.io/training"&gt;Training &amp;amp; Certification&lt;/a&gt; pages will boost your knowledge&lt;br/&gt;&lt;em&gt;Help in production?&lt;/em&gt; Our latest &lt;a href="https://spring.io/support"&gt;Support&lt;/a&gt; offerings will keep you up-and-running!&lt;/p&gt;
 &lt;/blockquote&gt;&lt;h2&gt;&lt;a href="#3-visitors-should-feel-our-energy" class="anchor" name="3-visitors-should-feel-our-energy"&gt;&lt;/a&gt;#3 Visitors should feel our energy!&lt;/h2&gt;
 &lt;p&gt;It was crucial that our new website should pay homage to the sheer energy and vibrancy of the Spring community. Our community is bright, passionate, innovative, confident, and dynamic. Spring is a shining example of what we can achieve if we all work together for the greater good.&lt;/p&gt;
-&lt;p&gt;In the new site, we’ve used a lighter and brighter design throughout. There are zesty new tonal highlights, new graphics, and even the occasional diagram. Links to events, social media, videos, and podcasts have also been added so that you can experience first hand the passion and drive of our community and it’s members.&lt;/p&gt;
+&lt;p&gt;In the new site, we’ve used a lighter and brighter design throughout. There are zesty new tonal highlights, new graphics, and even the occasional diagram. Links to events, social media, videos, and podcasts have also been added so that you can experience first hand the passion and drive of our community and its members.&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;&lt;em&gt;Feeling social?&lt;/em&gt; Try our new &lt;a href="https://spring.io/community"&gt;Community and Events&lt;/a&gt; page&lt;br/&gt;&lt;em&gt;Love a good talk?&lt;/em&gt; Take a look at our new &lt;a href="https://spring.io/learn"&gt;Learn&lt;/a&gt; page with videos, podcasts &amp;amp; more&lt;/p&gt;
 &lt;/blockquote&gt;&lt;h2&gt;&lt;a href="#so-here-it-is-hellip" class="anchor" name="so-here-it-is-hellip"&gt;&lt;/a&gt;So here it is&amp;hellip;&lt;/h2&gt;
-&lt;p&gt;These three core themes have allowed us to take everything we liked about the old site, and mold it into something &lt;a href="https://spring.io"&gt;new&lt;/a&gt;. We&amp;rsquo;ve lost very little of the existing content but we’ve augmented it with new pieces that should help explain what Spring is all about, why it’s so awesome, and how it can support you in your daily work.&lt;/p&gt;
+&lt;p&gt;These three core themes have allowed us to take everything we liked about the old site, and mold it into something &lt;a href="https://spring.io"&gt;new&lt;/a&gt;. We&amp;rsquo;ve lost very little content and we’ve augmented what we had with new pieces that explain what Spring is all about, why it’s so awesome, and how it can support you in your daily work.&lt;/p&gt;
 &lt;p&gt;As fellow developers, we know it&amp;rsquo;s impossible to build the &lt;em&gt;perfect&lt;/em&gt; website, but we really hope that you can be proud of Spring’s new showcase and that you’ll be happy to use it and &lt;a href="https://ctt.ac/xOb1i"&gt;share it&lt;/a&gt; with others.&lt;/p&gt;
 &lt;p&gt;Thanks for stopping by!&lt;/p&gt;
 &lt;p&gt;The Spring Website Team.&lt;/p&gt;

@@ -16,27 +16,6 @@ xsi:schemaLocation="http://www.springframework.org/schema/security http://www.sp
 <!-- 유저디테일서비스 -->
 	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>	
 	
-	
-	<!-- HikariCP cofiguration -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-	    <constructor-arg ref="hikariConfig" />
-	</bean>
-	
-	<!-- SqlSessionFactory -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	
-	<!-- TransactionManager -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	
-	
-	
-	
-	
-	
 	<security:http>
 		<security:intercept-url pattern="/sample/all" access="permitAll"/>
 		<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')" />
@@ -56,8 +35,12 @@ xsi:schemaLocation="http://www.springframework.org/schema/security http://www.sp
 		<security:logout logout-url="/customLogout" invalidate-session="true" />
 		
 	<!-- 자동로그인 REMEMBER ME : 자동로그인에서 데이터베이스를 이용하는 설정-->
-		<!-- <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/> -->
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 
+	<!-- 로그아웃시 쿠키삭제 -->
+		<security:logout logout-url="/customLogout"
+			invalidate-session="true" delete-cookies="remember-me,JSESSION_ID" />
+	
 	</security:http>	
 	
 	

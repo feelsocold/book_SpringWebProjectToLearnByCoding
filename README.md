@@ -11,4 +11,4 @@ part5. AOP와 트랜잭션
 
 part6. 파일 업로드 처리
 
-part7. Spring Web Security를 이용한 로그인 처리
+part7. Spring Web Security
